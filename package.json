@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/johnson419/chess/issues"
   },
-  "homepage": "https://github.com/johnson419/chess#readme"
+  "homepage": "https://github.com/johnson419/chess#readme",
+  "dependencies": {
+    "chess.js": "^1.0.0-beta.6"
+  }
 }
