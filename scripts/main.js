@@ -1,14 +1,32 @@
 // scripts/main.js
-const Chess = require('chess.js'); // Import the chess.js library
-
+const chess = new Chess();
 const board = document.getElementById('chessboard');
-const game = new Chess(); // Initialize the chess game
+ // Initialize the chess game
 
 // TODO: Implement your chessboard rendering and interaction code here
 
 // Example: Render the initial chessboard
 function renderChessboard() {
-    // TODO: Implement rendering logic here
+    for (let row = 0; row < 8; row++) {
+        for (let col = 0; col < 8; col++) {
+            const square = document.createElement('div');
+            square.classList.add('square');
+            square.dataset.row = row;
+            square.dataset.col = col;
+            chessboardContainer.appendChild(square);
+        }
+    }
+}
+
+// Add event listener to squares
+chessboardContainer.addEventListener('click', handleSquareClick);
+
+// Handle square click event
+function handleSquareClick(event) {
+    const square = event.target;
+    const row = square.dataset.row;
+    const col = square.dataset.col;
+    console.log(`Clicked on square at row ${row}, col ${col}`);
 }
 
 // Call the function to render the initial chessboard
