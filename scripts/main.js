@@ -26,7 +26,7 @@ function handleSquareClick(event) {
     const square = event.target;
     const row = square.dataset.row;
     const col = square.dataset.col;
-    console.log(`Clicked on square at row ${row}, col ${col}`);
+    console.log(`Clicked on square at row ${row} and col ${col}`);
 }
 
 // Call the function to render the initial chessboard
