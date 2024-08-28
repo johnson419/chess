@@ -1,36 +1,38 @@
-import React, { useEffect, useState } from 'react';
-const stockfish = () => new Worker(new URL('stockfish.js', import.meta.url));
+"use client";
+
+import { useEffect, useState } from 'react';
+
+const stockfish = typeof window !== 'undefined'
+  ? () => new Worker(new URL('stockfish.js', import.meta.url))
+  : null;
 
 const ChessGame: React.FC = () => {
-    const [engine, setEngine] = useState<Worker | null>(null);
-    const [output, setOutput] = useState<string>('');
+  const [engine, setEngine] = useState<Worker | null>(null);
+  const [output, setOutput] = useState<string>('');
 
-    useEffect(() => {
-      // Initialize Stockfish engine
+  useEffect(() => {
+    if (stockfish) {
       const sf = stockfish();
       setEngine(sf);
 
-      // Handle Stockfish output
       sf.onmessage = (event: MessageEvent) => {
         setOutput(event.data);
       };
 
-      // Send the UCI command to Stockfish
       sf.postMessage('uci');
 
       return () => {
-        // Terminate the engine when the component unmounts
         sf.terminate();
       };
-    }, []);
+    }
+  }, []);
 
-    return (
-      <div>
-        <h1>Chess Game with Stockfish</h1>
-        <pre>{output}</pre>
-      </div>
-    );
-  };
+  return (
+    <div>
+      <h1>Chess Game with Stockfish</h1>
+      <pre>{output}</pre>
+    </div>
+  );
+};
 
-  export default ChessGame;
-  
+export default ChessGame;
